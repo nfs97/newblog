@@ -36,6 +36,7 @@ class Post implements \JsonSerializable
     protected $description;
 
 
+
     /**
      * @return mixed
      */
@@ -74,5 +75,21 @@ class Post implements \JsonSerializable
             'id' => $this->id,
             'title'=> $this->title,
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }
