@@ -1,1 +1,0 @@
-{"virtualbox":{"/home/vagrant/projects/newblog":{"create":true,"group":"vagrant","owner":"vagrant","guestpath":"/home/vagrant/projects/newblog","hostpath":"/home/ubuntu/projects/newblog","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/ubuntu/projects/newblog","disabled":false}}}
