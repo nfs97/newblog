@@ -9,33 +9,35 @@
 namespace ApiBundle\Controller;
 
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use ApiBundle\Entity\Post;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Routing\Annotation\Route;
+use ApiBundle\Form\PostType;
 
 class IndexController extends Controller
 {
     /**
      * @Route("/api/posts", name="post_new")
+     * @Method({"POST"})
      */
     public function newAction(Request $request)
     {
         $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
 
         $response = new JsonResponse();
 
-        $form = $this->createFormBuilder($post)
-            ->add('title', TextType::class)
-            ->add('description', TextType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
+        $form->submit([
+            'title' => $request->request->get('title'),
+            'description' => $request->request->get('description')
+        ]);
 
         if ($form->isValid()) {
-            $post = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();
@@ -43,6 +45,7 @@ class IndexController extends Controller
         } else {
             $response->setStatusCode(400);
         }
+        $response->headers->set('Content-Type', 'application/json');
 
         return $response;
     }

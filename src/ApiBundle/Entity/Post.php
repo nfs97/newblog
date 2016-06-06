@@ -73,7 +73,6 @@ class Post implements \JsonSerializable
         return [
             'id' => $this->id,
             'title'=> $this->title,
-            'description'=> $this->description,
         ];
     }
 }
