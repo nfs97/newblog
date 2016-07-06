@@ -41,12 +41,84 @@ class IndexController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();
+            $response->setData($post);
             $response->setStatusCode(201);
         } else {
             $response->setStatusCode(400);
         }
         $response->headers->set('Content-Type', 'application/json');
 
+        return $response;
+    }
+
+    /**
+     * @Route("/api/posts")
+     * @Route("/api/posts/{id}", name="post_read")
+     * @Method({"GET"})
+     */
+    public function getAction($id = null)
+    {
+        $response = new JsonResponse();
+        if (null === $id) {
+            //TODO: pagination
+            $posts = $this->getDoctrine()->getRepository('ApiBundle:Post')->findAll();
+            $response->setStatusCode(200);
+            foreach ($posts as $post => $index) {
+                $posts[$index] = json_encode($post);
+            }
+        } else {
+            if($posts = $this->getDoctrine()->getRepository('ApiBundle:Post')->find($id)){
+                $response->setStatusCode(200);
+            } else {
+                $response->setStatusCode(404);
+            }
+        }
+        $response->setData(json_encode(["posts" => $posts]));
+        return $response;
+    }
+
+    /**
+     * @Route("/api/posts")
+     * @Route("/api/posts/{id}", name="post_delete")
+     * @Method({"DELETE"})
+     */
+    public function deleteAction($id = null)
+    {
+        $response = new JsonResponse();
+        $em = $this->getDoctrine()->getManager();
+        if($post = $em->getRepository('ApiBundle:Post')->find($id)){
+            $em->remove($post); //delete only one
+            $em->flush();
+            $response->setStatusCode(204);
+        } else {
+            $response->setStatusCode(404);
+        }
+        return $response;
+    }
+
+    /**
+     * @Route("/api/posts/{id}", name="post_update")
+     * @Method({"PUT"})
+     */
+    public function putAction($id = null) ///DON'T UNDERSTAND HOW TO DO THAT
+    {
+        $response = new JsonResponse();
+        $em = $this->getDoctrine()->getManager();
+        if($posts = $em->getRepository('ApiBundle:Post')->find($id)){
+            $updateForm = $this->createFormBuilder($posts)
+                ->add('title', TextType::class)
+                ->add('description', TextType::class)
+                ->getForm();
+            /*$updateForm = $this->createForm(PostType::class, $posts)
+                ->add('title', TextType::class)
+                ->getForm();*/
+            $posts->setTitle($updateForm->get("title")->getData());
+            $em->persist($posts);
+            $em->flush();
+            $response->setStatusCode(204);
+        } else {
+            $response->setStatusCode(404);
+        }
         return $response;
     }
 
