@@ -110,6 +110,11 @@ class IndexController extends Controller
             $form = $this->createForm(PostType::class, $post);
 
 
+            $form->submit([
+                'title' => $request->request->get('title'),
+                'description' => $request->request->get('description')
+            ]);
+
             if ($form->isValid()) {
                 $em->persist($post);
                 $em->flush();
