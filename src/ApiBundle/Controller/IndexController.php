@@ -100,25 +100,32 @@ class IndexController extends Controller
      * @Route("/api/posts/{id}", name="post_update")
      * @Method({"PUT"})
      */
-    public function putAction($id = null) ///DON'T UNDERSTAND HOW TO DO THAT
+    public function putAction(Request $request, $id = null)
     {
         $response = new JsonResponse();
+
         $em = $this->getDoctrine()->getManager();
-        if($posts = $em->getRepository('ApiBundle:Post')->find($id)){
-            $updateForm = $this->createFormBuilder($posts)
-                ->add('title', TextType::class)
-                ->add('description', TextType::class)
-                ->getForm();
-            /*$updateForm = $this->createForm(PostType::class, $posts)
-                ->add('title', TextType::class)
-                ->getForm();*/
-            $posts->setTitle($updateForm->get("title")->getData());
-            $em->persist($posts);
-            $em->flush();
-            $response->setStatusCode(204);
+        $post = $em->getRepository('ApiBundle:Post')->find($id);
+        if ($post){
+            $form = $this->createForm(PostType::class, $post);
+
+
+            if ($form->isValid()) {
+                $em->persist($post);
+                $em->flush();
+                $response->setData($post);
+                $response->setStatusCode(204);
+            } else {
+                $response->setStatusCode(400);
+            }
+
         } else {
             $response->setStatusCode(404);
         }
+
+
+        $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
