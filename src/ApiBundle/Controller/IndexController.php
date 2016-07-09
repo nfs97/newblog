@@ -116,6 +116,7 @@ class IndexController extends Controller
             ]);
 
             if ($form->isValid()) {
+
                 $em->persist($post);
                 $em->flush();
                 $response->setData($post);
