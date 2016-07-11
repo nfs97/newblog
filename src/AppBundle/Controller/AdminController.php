@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,16 +21,17 @@ use Symfony\Component\HttpFoundation\Response;
 use ApiBundle\Entity\Post;
 
 
-class DefaultController extends Controller
+class AdminController extends Controller
 {
     /**
      * Lists all Post entities.
      *
-     * @Route("/", name="post_index")
+     * @Route("/", name="admin_post_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
     {
+
         $em    = $this->getDoctrine()->getManager();
         $posts = $em->getRepository('ApiBundle:Post')->findAll();
         $dql   = "SELECT a FROM ApiBundle:Post a";
@@ -44,7 +46,7 @@ class DefaultController extends Controller
 
 
 
-        return $this->render('post/index.html.twig', array(
+        return $this->render('AdminPost/index.html.twig', array(
             'pagination' => $pagination,
             'posts' => $posts,
         ));
@@ -53,11 +55,14 @@ class DefaultController extends Controller
     /**
      * Creates a new Post entity.
      *
-     * @Route("post/new", name="post_new")
+     * @Route("post/new", name="admin_post_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
+
+        $this->enforceUserSecurity();
+
         $post = new Post();
         $form = $this->createForm('ApiBundle\Form\PostType', $post);
         $form->handleRequest($request);
@@ -67,10 +72,10 @@ class DefaultController extends Controller
             $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('post_show', array('id' => $post->getId()));
+            return $this->redirectToRoute('admin_post_show', array('id' => $post->getId()));
         }
 
-        return $this->render('post/new.html.twig', array(
+        return $this->render('AdminPost/new.html.twig', array(
             'post' => $post,
             'form' => $form->createView(),
         ));
@@ -79,14 +84,14 @@ class DefaultController extends Controller
     /**
      * Finds and displays a Post entity.
      *
-     * @Route("post/show/{id}", name="post_show")
+     * @Route("post/show/{id}", name="admin_post_show")
      * @Method("GET")
      */
     public function showAction(Post $post)
     {
         $deleteForm = $this->createDeleteForm($post);
 
-        return $this->render('post/show.html.twig', array(
+        return $this->render('AdminPost/show.html.twig', array(
             'post' => $post,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -95,11 +100,14 @@ class DefaultController extends Controller
     /**
      * Displays a form to edit an existing Post entity.
      *
-     * @Route("post/edit/{id}", name="post_edit")
+     * @Route("post/edit/{id}", name="admin_post_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Post $post)
     {
+
+        $this->enforceUserSecurity();
+
         $deleteForm = $this->createDeleteForm($post);
         $editForm = $this->createForm('ApiBundle\Form\PostType', $post);
         $editForm->handleRequest($request);
@@ -109,10 +117,10 @@ class DefaultController extends Controller
             $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('post_edit', array('id' => $post->getId()));
+            return $this->redirectToRoute('admin_post_edit', array('id' => $post->getId()));
         }
 
-        return $this->render('post/edit.html.twig', array(
+        return $this->render('AdminPost/edit.html.twig', array(
             'post' => $post,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -122,11 +130,13 @@ class DefaultController extends Controller
     /**
      * Deletes a Post entity.
      *
-     * @Route("post/delete/{id}", name="post_delete")
+     * @Route("post/delete/{id}", name="admin_post_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Post $post)
     {
+        $this->enforceUserSecurity();
+
         $form = $this->createDeleteForm($post);
         $form->handleRequest($request);
 
@@ -136,7 +146,7 @@ class DefaultController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('post_index');
+        return $this->redirectToRoute('admin_post_index');
     }
 
     /**
@@ -149,10 +159,15 @@ class DefaultController extends Controller
     private function createDeleteForm(Post $post)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('post_delete', array('id' => $post->getId())))
+            ->setAction($this->generateUrl('admin_post_delete', array('id' => $post->getId())))
             ->setMethod('DELETE')
             ->getForm()
             ;
+    }
+
+    private function enforceUserSecurity()
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page!');
     }
 
 }

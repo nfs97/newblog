@@ -9,3 +9,7 @@ api:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+user:
+    resource: "@UserBundle/Controller/"
+    type:     annotation

@@ -5,11 +5,8 @@
  * Date: 4/28/16
  * Time: 1:33 PM
  */
-
 namespace ApiBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="posts")
@@ -28,15 +25,11 @@ class Post implements \JsonSerializable
      * @ORM\Column(name="title", type="string", length=255)
      */
     protected $title;
-
     /**
      *
      * @ORM\Column(name="description", type="string", length=255)
      */
     protected $description;
-
-
-
     /**
      * @return mixed
      */
@@ -44,7 +37,6 @@ class Post implements \JsonSerializable
     {
         return $this->description;
     }
-
     /**
      * @param mixed $description
      */
@@ -52,7 +44,6 @@ class Post implements \JsonSerializable
     {
         $this->description = $description;
     }
-
     /**
      * @return mixed
      */
@@ -60,7 +51,6 @@ class Post implements \JsonSerializable
     {
         return $this->title;
     }
-
     /**
      * @param mixed $title
      */
@@ -68,7 +58,6 @@ class Post implements \JsonSerializable
     {
         $this->title = $title;
     }
-
     public function jsonSerialize()
     {
         return [
@@ -76,7 +65,6 @@ class Post implements \JsonSerializable
             'title'=> $this->title,
         ];
     }
-
     /**
      * @return mixed
      */
@@ -84,7 +72,6 @@ class Post implements \JsonSerializable
     {
         return $this->id;
     }
-
     /**
      * @param mixed $id
      */
