@@ -10,14 +10,13 @@
     <section class="login">
         <article>
             <h1>Register</h1>
-            <form action="{{ path('user_register') }}" method="post", novalidate="novalidate">
+            <form action="{{ path('user_register') }}" method="post">
                 {{ form_errors(form) }}
 
                 {{ form_row(form.username, {
                     'attr' : {'class':'a-clever-class '},
                     'help' : 'Choose a unique and clever username'
                 }) }}
-                {{ form_row(form.email) }}
                 {{ form_row(form.plainPassword.first, {
                     'label' : 'Password'
                 }) }}

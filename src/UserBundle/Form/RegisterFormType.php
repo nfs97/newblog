@@ -24,7 +24,6 @@ class RegisterFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('username', TextType::class)
-            //->add('email', EmailType::class)
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class
             ));
@@ -38,7 +37,7 @@ class RegisterFormType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        $view['email']->vars['help'] = 'Hint: It will have an @ symbol';
+
     }
 
 

@@ -17,6 +17,7 @@ use UserBundle\Form\RegisterFormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\FormView;
 
 class RegisterController extends Controller
 {
@@ -27,15 +28,15 @@ class RegisterController extends Controller
     public function registerAction(Request $request)
     {
         $user = new User();
-        $user->setUsername('Leia');
+        //$user->setUsername('Leia');
 
         $form = $this->createForm(RegisterFormType::class, $user);
+
         $form->handleRequest($request);
 
         if($form->isValid()){
-            var_dump($user = $form->getData());die;
-            $user = $form->getData();
 
+            $user = $form->getData();
 
 
             $user->setPassword($this->encodePassword($user, $user->getPlainPassword()));
@@ -44,12 +45,8 @@ class RegisterController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash(
-                'success',
-                'Welcome to Death Star! Have a great day!'
-            );
 
-            $url = $this->generateUrl('/');
+            $url = $this->generateUrl('admin_post_index');
 
             return $this->redirect($url);
         }

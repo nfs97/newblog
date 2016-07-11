@@ -11,7 +11,7 @@
     {% else %}
         <a class="link" href="{{ path('login') }}">Login</a>
     {% endif %}
-    {% if user.granted("ROLE_USER") %}
+    {% if is_granted('ROLE_USER') %}
     <ul>
         <li>
             <a href="{{ path('admin_post_new') }}">Create a new entry</a>
@@ -38,7 +38,7 @@
                         <li>
                             <a href="{{ path('admin_post_show', { 'id': post.id }) }}">show</a>
                         </li>
-                        {% if user.granted("ROLE_USER") %}
+                        {% if is_granted('ROLE_USER') %}
                         <li>
                             <a href="{{ path('admin_post_edit', { 'id': post.id }) }}">edit</a>
                         </li>
