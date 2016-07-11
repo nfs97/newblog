@@ -27,9 +27,9 @@ class LoadUsers implements FixtureInterface, ContainerAwareInterface, OrderedFix
 
 
         $user = new User();
-        $user->setUsername('darth');
+        $user->setUsername('mike');
         $user->setIsActive(true);
-        $user->setPassword($this->encodePassword($user,'darthpass'));
+        $user->setPassword($this->encodePassword($user,'mikepass'));
         $user->setRoles(array('ROLE_USER'));
         $manager->persist($user);
 
