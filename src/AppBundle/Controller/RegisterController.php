@@ -6,14 +6,14 @@
  * Time: 7:51 PM
  */
 
-namespace UserBundle\Controller;
+namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use UserBundle\Entity\User;
-use UserBundle\Form\RegisterFormType;
+use ApiBundle\Entity\User;
+use AppBundle\Form\RegisterFormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -51,7 +51,7 @@ class RegisterController extends Controller
             return $this->redirect($url);
         }
 
-        return array('form' => $form->createView());
+        return ['form' => $form->createView()];
     }
 
     private function encodePassword(User $user, $plainPassword)

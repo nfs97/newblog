@@ -6,7 +6,7 @@
  * Time: 5:41 PM
  */
 
-namespace UserBundle\Controller;
+namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,12 +29,12 @@ class SecurityController extends Controller
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render(
-            'UserBundle:security:login.html.twig',
-            array(
+            'AppBundle:Security:login.html.twig',
+            [
                 // last username entered by the user
                 'last_username' => $lastUsername,
                 'error'         => $error,
-            )
+            ]
         );
     }
 

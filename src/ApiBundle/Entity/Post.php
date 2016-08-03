@@ -30,6 +30,13 @@ class Post implements \JsonSerializable
      * @ORM\Column(name="description", type="string", length=255)
      */
     protected $description;
+
+    /**
+     *
+     * @ORM\Column(name="body", type="text")
+     */
+    protected $body;
+
     /**
      * @return mixed
      */
@@ -44,6 +51,23 @@ class Post implements \JsonSerializable
     {
         $this->description = $description;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @param mixed $body
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    }
+
     /**
      * @return mixed
      */
@@ -79,4 +103,5 @@ class Post implements \JsonSerializable
     {
         $this->id = $id;
     }
+
 }

@@ -1,13 +1,11 @@
 <?php
-namespace UserBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use UserBundle\Entity\User;
+use ApiBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 
@@ -30,14 +28,14 @@ class LoadUsers implements FixtureInterface, ContainerAwareInterface, OrderedFix
         $user->setUsername('mike');
         $user->setIsActive(true);
         $user->setPassword($this->encodePassword($user,'mikepass'));
-        $user->setRoles(array('ROLE_USER'));
+        $user->setRoles(['ROLE_USER']);
         $manager->persist($user);
 
         $admin = new User();
         $admin->setUsername('wayne');
         $admin->setIsActive(true);
         $admin->setPassword($this->encodePassword($admin,'waynepass'));
-        $admin->setRoles(array('ROLE_ADMIN'));
+        $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
 
         $manager->flush();

@@ -1,0 +1,16 @@
+{% extends 'AppBundle::admin.html.twig' %}
+{% form_theme form 'form/fields.html.twig' %}
+
+{% block body %}
+    <h1>Post creation</h1>
+    <a class="btn btn-default" href="{{ path('admin_post_index') }}">Back to the list</a>
+    <br>
+    <br>
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.body, { 'attr': {'class': 'form-control'} }) }}
+        <input class="btn btn-success pull-right" type="submit" value="Create" />
+    {{ form_end(form) }}
+{% endblock %}

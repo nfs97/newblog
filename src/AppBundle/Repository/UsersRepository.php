@@ -1,7 +1,8 @@
 <?php
 
-namespace UserBundle\Repository;
-use UserBundle\Entity\User;
+namespace AppBundle\Repository;
+
+use ApiBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;

@@ -1,15 +1,7 @@
-#app:
- #   resource: "@AppBundle/Controller/"
-  #  type:     annotation
-
 api:
      resource: "@ApiBundle/Controller/"
      type:     annotation
 
 app:
     resource: "@AppBundle/Controller/"
-    type:     annotation
-
-user:
-    resource: "@UserBundle/Controller/"
     type:     annotation

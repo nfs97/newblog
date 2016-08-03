@@ -1,7 +1,7 @@
 <?php
 
 
-namespace UserBundle\Form;
+namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,15 +24,15 @@ class RegisterFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('username', TextType::class)
-            ->add('plainPassword', RepeatedType::class, array(
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class
-            ));
+            ]);
     }
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\User',
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'ApiBundle\Entity\User',
+        ]);
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options)

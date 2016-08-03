@@ -2,7 +2,7 @@
 # http://symfony.com/doc/current/book/security.html
 security:
     encoders:
-        UserBundle\Entity\User:
+        ApiBundle\Entity\User:
             algorithm: bcrypt
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
@@ -10,7 +10,7 @@ security:
     providers:
         our_db_provider:
             entity:
-                class: UserBundle:User
+                class: ApiBundle:User
                 property: username
 
     firewalls:
@@ -19,9 +19,10 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+                default_target_path: admin_post_index
             logout:
                 path:   logout #route to logout
-                target: admin_post_index
+                target: post_index
             anonymous: ~
             provider: our_db_provider
  #       main:
@@ -36,4 +37,5 @@ security:
 
     access_control:
         #putting security in the controller class instead!
+
 #        - { path: ^/admin, roles: ROLE_USER }

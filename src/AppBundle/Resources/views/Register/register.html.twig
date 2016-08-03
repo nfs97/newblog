@@ -1,9 +1,9 @@
-{% extends '::base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('bundles/user/css/login.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/login.css') }}"/>
 {% endblock %}
 
 {% block body %}

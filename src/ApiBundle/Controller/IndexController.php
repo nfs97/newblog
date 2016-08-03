@@ -112,7 +112,8 @@ class IndexController extends Controller
 
             $form->submit([
                 'title' => $request->request->get('title'),
-                'description' => $request->request->get('description')
+                'description' => $request->request->get('description'),
+                'body' => $request->request->get('body')
             ]);
 
             if ($form->isValid()) {

@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -19,49 +20,53 @@ use Symfony\Component\Routing\Annotation\Route;
 use ApiBundle\Form\PostType;
 use Symfony\Component\HttpFoundation\Response;
 use ApiBundle\Entity\Post;
+use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 
 
+/**
+ * @Security("has_role('ROLE_USER')")
+ */
 class AdminController extends Controller
 {
     /**
      * Lists all Post entities.
      *
-     * @Route("/", name="admin_post_index")
+     * @Route("/admin", name="admin_post_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
     {
+        //$this->enforceUserSecurity();
 
-        $em    = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository('ApiBundle:Post')->findAll();
-        $dql   = "SELECT a FROM ApiBundle:Post a";
+        $dql = "SELECT a FROM ApiBundle:Post a";
         $query = $em->createQuery($dql);
 
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            3/*limit per page*/
+            $request->query->getInt('page', 1),/*page number*/
+            5/*limit per page*/
         );
 
 
-
-        return $this->render('AdminPost/index.html.twig', array(
+        return $this->render('AppBundle:Admin:index.html.twig', [
             'pagination' => $pagination,
             'posts' => $posts,
-        ));
+        ]);
     }
 
     /**
      * Creates a new Post entity.
      *
-     * @Route("post/new", name="admin_post_new")
+     * @Route("admin/post/new", name="admin_post_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
 
-        $this->enforceUserSecurity();
+        //$this->enforceUserSecurity();
 
         $post = new Post();
         $form = $this->createForm('ApiBundle\Form\PostType', $post);
@@ -72,41 +77,39 @@ class AdminController extends Controller
             $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('admin_post_show', array('id' => $post->getId()));
+            return $this->redirectToRoute('admin_post_show', ['id' => $post->getId()]);
         }
 
-        return $this->render('AdminPost/new.html.twig', array(
+        return $this->render('AppBundle:Admin:new.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
      * Finds and displays a Post entity.
      *
-     * @Route("post/show/{id}", name="admin_post_show")
+     * @Route("admin/post/show/{id}", name="admin_post_show")
      * @Method("GET")
      */
     public function showAction(Post $post)
     {
-        $deleteForm = $this->createDeleteForm($post);
-
-        return $this->render('AdminPost/show.html.twig', array(
+        return $this->render('AppBundle:Admin:show.html.twig', [
             'post' => $post,
-            'delete_form' => $deleteForm->createView(),
-        ));
+            'delete_form' => $this->createDeleteForm($post)->createView(),
+        ]);
     }
 
     /**
      * Displays a form to edit an existing Post entity.
      *
-     * @Route("post/edit/{id}", name="admin_post_edit")
+     * @Route("admin/post/edit/{id}", name="admin_post_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Post $post)
     {
 
-        $this->enforceUserSecurity();
+        //$this->enforceUserSecurity();
 
         $deleteForm = $this->createDeleteForm($post);
         $editForm = $this->createForm('ApiBundle\Form\PostType', $post);
@@ -117,25 +120,24 @@ class AdminController extends Controller
             $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('admin_post_edit', array('id' => $post->getId()));
+            return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()]);
         }
 
-        return $this->render('AdminPost/edit.html.twig', array(
+        return $this->render('AppBundle:Admin:edit.html.twig', [
             'post' => $post,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**
      * Deletes a Post entity.
      *
-     * @Route("post/delete/{id}", name="admin_post_delete")
-     * @Method("DELETE")
+     * @Route("admin/post/delete/{id}", name="admin_post_delete")
      */
     public function deleteAction(Request $request, Post $post)
     {
-        $this->enforceUserSecurity();
+        //$this->enforceUserSecurity();
 
         $form = $this->createDeleteForm($post);
         $form->handleRequest($request);
@@ -159,10 +161,9 @@ class AdminController extends Controller
     private function createDeleteForm(Post $post)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_post_delete', array('id' => $post->getId())))
+            ->setAction($this->generateUrl('admin_post_delete', ['id' => $post->getId()]))
             ->setMethod('DELETE')
-            ->getForm()
-            ;
+            ->getForm();
     }
 
     private function enforceUserSecurity()

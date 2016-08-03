@@ -1,0 +1,13 @@
+{% extends 'AppBundle::admin.html.twig' %}
+
+{% block body %}
+    <a class="btn btn-default" href="{{ path('admin_post_index') }}">Back to the list</a>
+    <a class="btn btn-primary pull-right" href="{{ path('admin_post_edit', { 'id': post.id }) }}">Edit</a>
+    <br>
+    <br>
+    <div class="container-fluid">
+        <h1 class="single__title">{{ post.title }}</h1>
+        <p class="single_excerpt">{{ post.description }}</p>
+        <p class="post-content">{{ post.body }}</p>
+    </div>
+{% endblock %}
