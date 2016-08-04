@@ -16,15 +16,41 @@
         <tbody>
         {% for post in pagination %}
             <tr>
-                <td><a href="{{ path('admin_post_show', { 'id': post.id }) }}">{{ post.id }}</a></td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.description }}</td>
+                <td name="id"><a href="{{ path('admin_post_show', { 'id': post.id }) }}">{{ post.id }}</a></td>
+                <td name="title">{{ post.title }}</td>
+                <td name="description">{{ post.description }}</td>
                 <td class="buttons-tight">
                     <a class="btn btn-default" href="{{ path('admin_post_show', { 'id': post.id }) }}">Show</a>
-                    <a class="btn btn-primary btn-edit" id="{{ post.id }}" href="javascript:;">Edit</a>
+                    <a class="btn btn-primary" href="javascript:;" type="button" data-toggle="modal" data-target="#myModal-{{ post.id }}">Edit</a>
                     <a class="btn btn-danger btn-delete" id="{{ post.id }}" href="javascript:;">Delete</a>
                 </td>
             </tr>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal-{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel-{{ post.id }}">Edit post</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input name="title" class="form-control" value="{{ post.title }}">
+                            <br>
+                            <br>
+                            <input name="description" class="form-control" value="{{ post.description }}">
+                            <br>
+                            <br>
+                            <textarea name="body" class="form-control" rows="10">{{ post.body }}</textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary btn-edit">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         {% endfor %}
         </tbody>
     </table>
@@ -33,25 +59,7 @@
         {{ knp_pagination_render(pagination) }}
     </div>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
 
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close">×</span>
-                <h2>Modal Header</h2>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the Modal Body</p>
-                <p>Some other text...</p>
-            </div>
-            <div class="modal-footer">
-                <h3>Modal Footer</h3>
-            </div>
-        </div>
-
-    </div>
 
 {% endblock %}
 
@@ -74,44 +82,38 @@
             }
         });
 
-/*        $(".btn-edit").click(function (event) {
-            var postId = event.target.id;
-            $.ajax({
-                url: "/api/posts/" + postId,
-                method: "PUT",
-                success: function () {
-                    $(event.target).parent().parent().remove();
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            })
-        });*/
-
         $(".btn-edit").click(function (event) {
 
-            var modal = document.getElementById('myModal');
+                var title = $(event.target).parent().parent().find('input[name=title]').val();
+                var description = $(event.target).parent().parent().find('input[name=description]').val();
+                var body = $(event.target).parent().parent().find('textarea[name=body]').val();
+                var postId = $(event.target).parent().parent().parent().parent().attr("id").split("-")[1];
+                $.ajax({
+                    url: "/api/posts/" + postId,
+                    method: "PUT",
+                    data:{
+                        'title': title,
+                        'description': description,
+                        'body': body
+                    },
+                    success: function () {
+                        //TODO: find entry place old values with new once
+                        //$('div.wrapper').find('tbody td[name=title].title'+postId).text(title);
+                        //$('div.wrapper').find('tbody td[name=description].description'+postId).text(description);
+                        $("tbody td[name=id]").each(function(index, element) {
+                            if (parseInt($(this).text()) === parseInt(postId)) {
+                                $(this).parent().find($("td[name=title]")).text(title);
+                                $(this).parent().find($("td[name=description]")).text(description);
+                            }
+                        });
+                        //console.log($("tbody td[name=id]"));
 
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                })
 
-            // When the user clicks on the button, open the modal
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
         });
-
     </script>
 {% endblock %}
