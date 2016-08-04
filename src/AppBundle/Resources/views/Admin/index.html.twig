@@ -9,7 +9,7 @@
             {# sorting of properties based on query components #}
             <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
             <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
-            <th>{{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Description', ['a.date', 'a.time']) }}</th>
             <th class="action-buttons"></th>
         </tr>
         </thead>
@@ -83,37 +83,30 @@
         });
 
         $(".btn-edit").click(function (event) {
-
-                var title = $(event.target).parent().parent().find('input[name=title]').val();
-                var description = $(event.target).parent().parent().find('input[name=description]').val();
-                var body = $(event.target).parent().parent().find('textarea[name=body]').val();
-                var postId = $(event.target).parent().parent().parent().parent().attr("id").split("-")[1];
-                $.ajax({
-                    url: "/api/posts/" + postId,
-                    method: "PUT",
-                    data:{
-                        'title': title,
-                        'description': description,
-                        'body': body
-                    },
-                    success: function () {
-                        //TODO: find entry place old values with new once
-                        //$('div.wrapper').find('tbody td[name=title].title'+postId).text(title);
-                        //$('div.wrapper').find('tbody td[name=description].description'+postId).text(description);
-                        $("tbody td[name=id]").each(function(index, element) {
-                            if (parseInt($(this).text()) === parseInt(postId)) {
-                                $(this).parent().find($("td[name=title]")).text(title);
-                                $(this).parent().find($("td[name=description]")).text(description);
-                            }
-                        });
-                        //console.log($("tbody td[name=id]"));
-
-                    },
-                    error: function (response) {
-                        console.log(response);
-                    }
-                })
-
+            var title = $(event.target).parent().parent().find('input[name=title]').val();
+            var description = $(event.target).parent().parent().find('input[name=description]').val();
+            var body = $(event.target).parent().parent().find('textarea[name=body]').val();
+            var postId = $(event.target).parent().parent().parent().parent().attr("id").split("-")[1];
+            $.ajax({
+                url: "/api/posts/" + postId,
+                method: "PUT",
+                data:{
+                    'title': title,
+                    'description': description,
+                    'body': body
+                },
+                success: function () {
+                    $("tbody td[name=id]").each(function(index, element) {
+                        if (parseInt($(this).text()) === parseInt(postId)) {
+                            $(this).parent().find($("td[name=title]")).text(title);
+                            $(this).parent().find($("td[name=description]")).text(description);
+                        }
+                    });
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
         });
     </script>
 {% endblock %}
