@@ -82,10 +82,12 @@
             }
         });
 
+        for (var i = 0; i < 5; i++) { new SimpleMDE({element: $("textarea[name=body]")[i]});}
+
         $(".btn-edit").click(function (event) {
             var title = $(event.target).parent().parent().find('input[name=title]').val();
             var description = $(event.target).parent().parent().find('input[name=description]').val();
-            var body = $(event.target).parent().parent().find('textarea[name=body]').val();
+            var body = $(event.target).parent().parent().find('div.CodeMirror-code').text();
             var postId = $(event.target).parent().parent().parent().parent().attr("id").split("-")[1];
             $.ajax({
                 url: "/api/posts/" + postId,
