@@ -1,0 +1,60 @@
+[2016-08-10 16:48:51,490][INFO ][node                     ] [Kismet] version[2.3.5], pid[19415], build[90f439f/2016-07-27T10:36:52Z]
+[2016-08-10 16:48:51,491][INFO ][node                     ] [Kismet] initializing ...
+[2016-08-10 16:48:51,875][INFO ][plugins                  ] [Kismet] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2016-08-10 16:48:51,891][INFO ][env                      ] [Kismet] using [1] data paths, mounts [[/ (/dev/sda10)]], net usable_space [18.8gb], net total_space [44.7gb], spins? [possibly], types [ext4]
+[2016-08-10 16:48:51,891][INFO ][env                      ] [Kismet] heap size [989.8mb], compressed ordinary object pointers [true]
+[2016-08-10 16:48:53,006][INFO ][node                     ] [Kismet] initialized
+[2016-08-10 16:48:53,006][INFO ][node                     ] [Kismet] starting ...
+[2016-08-10 16:48:53,065][INFO ][transport                ] [Kismet] publish_address {127.0.0.1:9300}, bound_addresses {[::1]:9300}, {127.0.0.1:9300}
+[2016-08-10 16:48:53,069][INFO ][discovery                ] [Kismet] elasticsearch/6shY-FPYQ7a4-HNpf_RH3w
+[2016-08-10 16:48:56,100][INFO ][cluster.service          ] [Kismet] new_master {Kismet}{6shY-FPYQ7a4-HNpf_RH3w}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2016-08-10 16:48:56,121][INFO ][http                     ] [Kismet] publish_address {127.0.0.1:9200}, bound_addresses {[::1]:9200}, {127.0.0.1:9200}
+[2016-08-10 16:48:56,121][INFO ][node                     ] [Kismet] started
+[2016-08-10 16:48:56,141][INFO ][gateway                  ] [Kismet] recovered [0] indices into cluster_state
+[2016-08-10 16:52:50,080][INFO ][cluster.metadata         ] [Kismet] [twitter] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings [user]
+[2016-08-10 16:52:50,319][INFO ][cluster.routing.allocation] [Kismet] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[twitter][4]] ...]).
+[2016-08-10 16:52:50,329][INFO ][cluster.metadata         ] [Kismet] [twitter] update_mapping [user]
+[2016-08-10 16:54:13,163][INFO ][node                     ] [Kismet] stopping ...
+[2016-08-10 16:54:13,202][INFO ][node                     ] [Kismet] stopped
+[2016-08-10 16:54:13,203][INFO ][node                     ] [Kismet] closing ...
+[2016-08-10 16:54:13,206][INFO ][node                     ] [Kismet] closed
+[2016-08-10 16:20:50,275][WARN ][bootstrap                ] jvm uses the client vm, make sure to run `java` with the server vm for best performance by adding `-server` to the command line
+[2016-08-10 16:20:50,662][INFO ][node                     ] [The Symbiote] version[2.3.5], pid[7703], build[90f439f/2016-07-27T10:36:52Z]
+[2016-08-10 16:20:50,663][INFO ][node                     ] [The Symbiote] initializing ...
+[2016-08-10 16:20:51,486][INFO ][plugins                  ] [The Symbiote] modules [lang-groovy, reindex, lang-expression], plugins [], sites []
+[2016-08-10 16:20:51,523][INFO ][env                      ] [The Symbiote] using [1] data paths, mounts [[/home/vagrant/projects/newblog (home_vagrant_projects_newblog)]], net usable_space [18.6gb], net total_space [44.7gb], spins? [possibly], types [vboxsf]
+[2016-08-10 16:20:51,523][INFO ][env                      ] [The Symbiote] heap size [1017.6mb], compressed ordinary object pointers [unknown]
+[2016-08-10 16:20:51,524][WARN ][env                      ] [The Symbiote] max file descriptors [4096] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2016-08-10 16:20:53,828][INFO ][node                     ] [The Symbiote] initialized
+[2016-08-10 16:20:53,828][INFO ][node                     ] [The Symbiote] starting ...
+[2016-08-10 16:20:53,894][INFO ][transport                ] [The Symbiote] publish_address {127.0.0.1:9300}, bound_addresses {127.0.0.1:9300}, {[::1]:9300}
+[2016-08-10 16:20:53,899][INFO ][discovery                ] [The Symbiote] elasticsearch/63WwgWLXRQ2tr3C6Xwy1ZQ
+[2016-08-10 16:20:56,945][INFO ][cluster.service          ] [The Symbiote] new_master {The Symbiote}{63WwgWLXRQ2tr3C6Xwy1ZQ}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2016-08-10 16:20:56,963][INFO ][http                     ] [The Symbiote] publish_address {127.0.0.1:9200}, bound_addresses {127.0.0.1:9200}, {[::1]:9200}
+[2016-08-10 16:20:56,964][INFO ][node                     ] [The Symbiote] started
+[2016-08-10 16:20:57,124][INFO ][gateway                  ] [The Symbiote] recovered [1] indices into cluster_state
+[2016-08-10 16:20:57,845][INFO ][cluster.routing.allocation] [The Symbiote] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[twitter][2]] ...]).
+[2016-08-10 17:05:40,647][INFO ][node                     ] [The Symbiote] stopping ...
+[2016-08-10 17:05:40,727][INFO ][node                     ] [The Symbiote] stopped
+[2016-08-10 17:05:40,727][INFO ][node                     ] [The Symbiote] closing ...
+[2016-08-10 17:05:40,732][INFO ][node                     ] [The Symbiote] closed
+[2016-08-10 17:13:41,707][WARN ][bootstrap                ] jvm uses the client vm, make sure to run `java` with the server vm for best performance by adding `-server` to the command line
+[2016-08-10 17:13:42,099][INFO ][node                     ] [Cain] version[2.3.5], pid[8549], build[90f439f/2016-07-27T10:36:52Z]
+[2016-08-10 17:13:42,100][INFO ][node                     ] [Cain] initializing ...
+[2016-08-10 17:13:42,977][INFO ][plugins                  ] [Cain] modules [lang-groovy, reindex, lang-expression], plugins [], sites []
+[2016-08-10 17:13:43,021][INFO ][env                      ] [Cain] using [1] data paths, mounts [[/home/vagrant/projects/newblog (home_vagrant_projects_newblog)]], net usable_space [18.6gb], net total_space [44.7gb], spins? [possibly], types [vboxsf]
+[2016-08-10 17:13:43,022][INFO ][env                      ] [Cain] heap size [1017.6mb], compressed ordinary object pointers [unknown]
+[2016-08-10 17:13:43,022][WARN ][env                      ] [Cain] max file descriptors [4096] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2016-08-10 17:13:45,473][INFO ][node                     ] [Cain] initialized
+[2016-08-10 17:13:45,474][INFO ][node                     ] [Cain] starting ...
+[2016-08-10 17:13:45,555][INFO ][transport                ] [Cain] publish_address {127.0.0.1:9300}, bound_addresses {127.0.0.1:9300}, {[::1]:9300}
+[2016-08-10 17:13:45,562][INFO ][discovery                ] [Cain] elasticsearch/pZsH3E1qS3Wwfq7z0cd7tQ
+[2016-08-10 17:13:48,619][INFO ][cluster.service          ] [Cain] new_master {Cain}{pZsH3E1qS3Wwfq7z0cd7tQ}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2016-08-10 17:13:48,635][INFO ][http                     ] [Cain] publish_address {127.0.0.1:9200}, bound_addresses {127.0.0.1:9200}, {[::1]:9200}
+[2016-08-10 17:13:48,636][INFO ][node                     ] [Cain] started
+[2016-08-10 17:13:48,820][INFO ][gateway                  ] [Cain] recovered [1] indices into cluster_state
+[2016-08-10 17:13:49,736][INFO ][cluster.routing.allocation] [Cain] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[twitter][3]] ...]).
+[2016-08-10 18:08:22,445][INFO ][node                     ] [Cain] stopping ...
+[2016-08-10 18:08:22,564][INFO ][node                     ] [Cain] stopped
+[2016-08-10 18:08:22,565][INFO ][node                     ] [Cain] closing ...
+[2016-08-10 18:08:22,569][INFO ][node                     ] [Cain] closed

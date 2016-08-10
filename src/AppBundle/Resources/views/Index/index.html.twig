@@ -13,11 +13,17 @@
                 <p>{{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}</p>#}
     {% for post in pagination %}
         <a href="{{ path('post_show', { 'id': post.id }) }}"><h3>{{ post.title }}</h3></a>
+        <span class="disqus-comment-count" data-disqus-url="{{ app.request.uri|slice(0, app.request.uri|length - 1) }}{{ path('post_show', { 'id': post.id }) }}"></span>
         <p>{{ post.description }}</p>
     {% endfor %}
     {# display navigation #}
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
+{{ php }}
+{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script id="dsq-count-scr" src="//vladyblog.disqus.com/count.js" async></script>
 {% endblock %}

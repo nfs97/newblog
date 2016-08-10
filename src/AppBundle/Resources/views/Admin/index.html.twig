@@ -83,8 +83,12 @@
         });
 
         for (var i = 0; i < 5; i++) {
-            new SimpleMDE({element: $("textarea[name=body]")[i]});
+            var simplemde = new SimpleMDE({element: $("textarea[name=body]")[i]});
         }
+
+        $('')
+
+        simplemde.value();
 
         $(".btn-edit").click(function (event) {
             var title = $(event.target).parent().parent().find('input[name=title]').val();
