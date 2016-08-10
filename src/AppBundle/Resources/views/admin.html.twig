@@ -24,6 +24,7 @@
                 <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-6">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="/admin">Home</a></li>
+                        <li class=""><a href="{{ path('upload_media') }}">Media</a></li>
                         <li class="align-right">
                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                                 <a href="{{ path('logout') }}">Logout</a>

@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <h1 class="single__title">{{ post.title }}</h1>
         <p class="single_excerpt">{{ post.description }}</p>
-        <p class="post-content">{{ post.body }}</p>
+        <p class="post-content">{{ post.body|md2html }}</p>
     </div>
     <br>
     <br>

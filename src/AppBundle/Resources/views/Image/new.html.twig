@@ -1,0 +1,10 @@
+{% extends 'AppBundle::admin.html.twig' %}
+
+
+{% block body %}
+    <h1>Adding a new product</h1>
+{{ form_start(form) }}
+    {{ form_row(form.image) }}
+    <input class="btn btn-success pull-right" type="submit" value="Upload" />
+{{ form_end(form) }}
+{% endblock %}

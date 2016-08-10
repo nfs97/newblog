@@ -151,6 +151,7 @@ class AdminController extends Controller
         return $this->redirectToRoute('admin_post_index');
     }
 
+
     /**
      * Creates a form to delete a Post entity.
      *
