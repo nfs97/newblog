@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new ApiBundle\ApiBundle(),
             new AppBundle\AppBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new Oneup\UploaderBundle\OneupUploaderBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

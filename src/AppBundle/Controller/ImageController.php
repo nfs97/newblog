@@ -29,6 +29,7 @@ class ImageController extends Controller
 
     /**
      * @Route("admin/media", name="upload_media")
+     * @Method({"GET", "POST"})
      */
     public function mediaAction (Request $request)
     {

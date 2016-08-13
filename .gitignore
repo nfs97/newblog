@@ -16,3 +16,5 @@
 /web/bundles/
 .vagrant/*
 .idea/*
+node_modules/*
+certificationy-cli/*

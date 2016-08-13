@@ -37,3 +37,8 @@ th.action-buttons {
 .post-content {
     font-size: 16px;
 }
+
+.bar {
+    height: 18px;
+    background: green;
+}
