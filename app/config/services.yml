@@ -21,3 +21,9 @@ services:
             public:    false
             tags:
                 - { name: twig.extension }
+
+    acme_hello.upload_listener:
+        class: ApiBundle\EventListener\UploadListener
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }

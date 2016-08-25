@@ -8,45 +8,8 @@
     <link rel="stylesheet" href="{{ asset('vendors/jQuery-File-Upload-9.12.5/css/jquery.fileupload-ui.css')}}">
 {% endblock %}
 {% block body %}
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-fixed-top .navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="https://github.com/blueimp/jQuery-File-Upload">jQuery File Upload</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="https://github.com/blueimp/jQuery-File-Upload/tags">Download</a></li>
-                    <li><a href="https://github.com/blueimp/jQuery-File-Upload">Source Code</a></li>
-                    <li><a href="https://github.com/blueimp/jQuery-File-Upload/wiki">Documentation</a></li>
-                    <li><a href="https://blueimp.net">&copy; Sebastian Tschan</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <h1>jQuery File Upload Demo</h1>
-        <h2 class="lead">Basic Plus UI version</h2>
-        <ul class="nav nav-tabs">
-            <li><a href="basic.html">Basic</a></li>
-            <li><a href="basic-plus.html">Basic Plus</a></li>
-            <li class="active"><a href="index.html">Basic Plus UI</a></li>
-            <li><a href="angularjs.html">AngularJS</a></li>
-            <li><a href="jquery-ui.html">jQuery UI</a></li>
-        </ul>
-        <br>
-        <blockquote>
-            <p>File Upload widget with multiple file selection, drag&amp;drop support, progress bars, validation and preview images, audio and video for jQuery.<br>
-                Supports cross-domain, chunked and resumable file uploads and client-side image resizing.<br>
-                Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.</p>
-        </blockquote>
-        <br>
+{#    <div class="container">
         <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
-            <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
             <div class="row fileupload-buttonbar">
                 <div class="col-lg-7">
 
@@ -85,21 +48,6 @@
             <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
         </form>
         <br>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Demo Notes</h3>
-            </div>
-            <div class="panel-body">
-                <ul>
-                    <li>The maximum file size for uploads in this demo is <strong>999 KB</strong> (default file size is unlimited).</li>
-                    <li>Only image files (<strong>JPG, GIF, PNG</strong>) are allowed in this demo (by default there is no file type restriction).</li>
-                    <li>Uploaded files will be deleted automatically after <strong>5 minutes or less</strong> (demo files are stored in memory).</li>
-                    <li>You can <strong>drag &amp; drop</strong> files from your desktop on this webpage (see <a href="https://github.com/blueimp/jQuery-File-Upload/wiki/Browser-support">Browser support</a>).</li>
-                    <li>Please refer to the <a href="https://github.com/blueimp/jQuery-File-Upload">project website</a> and <a href="https://github.com/blueimp/jQuery-File-Upload/wiki">documentation</a> for more information.</li>
-                    <li>Built with the <a href="http://getbootstrap.com/">Bootstrap</a> CSS framework and Icons from <a href="http://glyphicons.com/">Glyphicons</a>.</li>
-                </ul>
-            </div>
-        </div>
     </div>
     <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
         <div class="slides"></div>
@@ -110,84 +58,80 @@
         <a class="play-pause"></a>
         <ol class="indicator"></ol>
     </div>
-<script id="template-upload" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-upload fade">
-        <td>
-            <span class="preview"></span>
-        </td>
-        <td>
-            <p class="name">{%=file.name%}</p>
-            <strong class="error text-danger"></strong>
-        </td>
-        <td>
-            <p class="size">Processing...</p>
-            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-        </td>
-        <td>
-            {% if (!i && !o.options.autoUpload) { %}
-                <button class="btn btn-primary start" disabled>
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start</span>
-                </button>
-            {% } %}
-            {% if (!i) { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
-    </tr>
-{% } %}
-</script>
+<script>
+    $('#fileupload').fileupload({
+        filesContainer: $('table.files'),
+        uploadTemplateId: null,
+        downloadTemplateId: null,
+        uploadTemplate: function (o) {
+            var rows = $();
+            $.each(o.files, function (index, file) {
+                var row = $('<tr class="template-upload fade">' +
+                        '<td><span class="preview"></span></td>' +
+                        '<td><p class="name"></p>' +
+                        '<div class="error"></div>' +
+                        '</td>' +
+                        '<td><p class="size"></p>' +
+                        '<div class="progress"></div>' +
+                        '</td>' +
+                        '<td>' +
+                        (!index && !o.options.autoUpload ?
+                                '<button class="start" disabled>Start</button>' : '') +
+                        (!index ? '<button class="cancel">Cancel</button>' : '') +
+                        '</td>' +
+                        '</tr>');
+                row.find('.name').text(file.name);
+                row.find('.size').text(o.formatFileSize(file.size));
+                if (file.error) {
+                    row.find('.error').text(file.error);
+                }
+                rows = rows.add(row);
+            });
+            return rows;
+        },
+        downloadTemplate: function (o) {
+            var rows = $();
+            $.each(o.files, function (index, file) {
+                var row = $('<tr class="template-download fade">' +
+                        '<td><span class="preview"></span></td>' +
+                        '<td><p class="name"></p>' +
+                        (file.error ? '<div class="error"></div>' : '') +
+                        '</td>' +
+                        '<td><span class="size"></span></td>' +
+                        '<td><button class="delete">Delete</button></td>' +
+                        '</tr>');
+                row.find('.size').text(o.formatFileSize(file.size));
+                if (file.error) {
+                    row.find('.name').text(file.name);
+                    row.find('.error').text(file.error);
+                } else {
+                    row.find('.name').append($('<a></a>').text(file.name));
+                    if (file.thumbnailUrl) {
+                        row.find('.preview').append(
+                                $('<a></a>').append(
+                                        $('<img>').prop('src', file.thumbnailUrl)
+                                )
+                        );
+                    }
+                    row.find('a')
+                            .attr('data-gallery', '')
+                            .prop('href', file.url);
+                    row.find('button.delete')
+                            .attr('data-type', file.delete_type)
+                            .attr('data-url', file.delete_url);
+                }
+                rows = rows.add(row);
+            });
+            return rows;
+        }
+    });
+</script>#}
 
-<script id="template-download" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-download fade">
-        <td>
-            <span class="preview">
-                {% if (file.thumbnailUrl) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
-                {% } %}
-            </span>
-        </td>
-        <td>
-            <p class="name">
-                {% if (file.url) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
-                {% } else { %}
-                    <span>{%=file.name%}</span>
-                {% } %}
-            </p>
-            {% if (file.error) { %}
-                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
-            {% } %}
-        </td>
-        <td>
-            <span class="size">{%=o.formatFileSize(file.size)%}</span>
-        </td>
-        <td>
-            {% if (file.deleteUrl) { %}
-                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                    <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" name="delete" value="1" class="toggle">
-            {% } else { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
-    </tr>
-{% } %}
-</script>
+
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('vendors/jQuery-File-Upload-9.12.5/js/vendor/jquery.ui.widget.js') }}"></script>
+{#    <script src="{{ asset('vendors/jQuery-File-Upload-9.12.5/js/vendor/jquery.ui.widget.js') }}"></script>
     <script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
     <script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
     <script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
@@ -219,5 +163,18 @@
                         .call(this, $.Event('done'), {result: result});
             });
         });
+    </script>#}
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="//rawgithub.com/blueimp/jQuery-File-Upload/master/js/vendor/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="//rawgithub.com/blueimp/jQuery-File-Upload/master/js/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="//rawgithub.com/blueimp/jQuery-File-Upload/master/js/jquery.fileupload.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#fileupload').fileupload({});
+        });
     </script>
+
+    <input id="fileupload" type="file" name="files[]" data-url="{{ oneup_uploader_endpoint('gallery') }}" multiple />
 {% endblock %}

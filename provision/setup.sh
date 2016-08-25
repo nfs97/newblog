@@ -53,6 +53,12 @@ echo "Installing composer packages..."
 cd $ROOT_DIR
 composer install > /dev/null
 
+echo "Installing npm..."
+echo vagrant | sudo -S apt-get install -y npm > /dev/null
+
+echo "Installing npm packages..."
+echo vagrant | cd $ROOT_DIR | npm install
+
 echo "Configuring symfony"
 cp $ROOT_DIR/app/config/parameters.yml.dist $ROOT_DIR/app/config/parameters.yml
 

@@ -1,0 +1,40 @@
+{
+  "name": "newblog",
+  "version": "0.0.0",
+  "description": "newblog =======",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "marked": "~0.3.6",
+    "codemirror-spell-checker": "~1.1.2",
+    "codemirror": "~5.17.0",
+    "simplemde": "~1.11.2",
+    "typo-js": "~1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nfs97/newblog.git"
+  },
+  "keywords": [
+    "blog",
+    "symfony3",
+    "doctrine",
+    "simplemde",
+    "jquery",
+    "bootstrap",
+    "markdown",
+    "ajax",
+    "php"
+  ],
+  "author": "vlady",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/nfs97/newblog/issues"
+  }
+}

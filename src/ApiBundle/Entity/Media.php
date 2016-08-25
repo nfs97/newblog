@@ -6,6 +6,7 @@
  * Time: 1:33 PM
  */
 namespace ApiBundle\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
@@ -28,29 +29,15 @@ class Media
      *
      * @var string
      *
-     * @ORM\Column(type="text", length=255, nullable=false)
+     * @ORM\Column(name="path", type="text", length=255, nullable=false)
      */
     protected $path;
 
     /**
-     * @ORM\Column(name="image", type="string")
-     *
+     * @ORM\Column(name="imageName", type="string")
      * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
-     * @Assert\Image(mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff"})
      */
-    private $image;
-
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
+    private $imageName;
 
     /**
      * @return mixed
@@ -81,6 +68,22 @@ class Media
     public function setPath($path)
     {
         $this->path = $path;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @param mixed $imageName
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
     }
 
 }

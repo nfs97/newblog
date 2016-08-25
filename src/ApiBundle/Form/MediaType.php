@@ -25,7 +25,10 @@ class MediaType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('image', FileType::class, [
+            ->add('path', TextType::class, [
+                'required'  => true,
+            ])
+            ->add('imageName', TextType::class, [
                 'required'  => true,
             ]);
     }
