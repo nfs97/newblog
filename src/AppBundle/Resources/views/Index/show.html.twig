@@ -12,7 +12,11 @@
     <br>
     <div class="container-fluid">
         <h1 class="single__title">{{ post.title }}</h1>
-        <p class="post-views">{{ post.views }}</p>
+        {% if post.views == 1 %}
+            <p>{{ post.views }} view</p>
+        {% else  %}
+            <p>{{ post.views }} views</p>
+        {% endif %}
         <p class="single_excerpt">{{ post.description }}</p>
         <p class="post-content">{{ post.body|md2html }}</p>
     </div>

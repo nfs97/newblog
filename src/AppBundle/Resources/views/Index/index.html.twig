@@ -11,8 +11,13 @@
     {% for post in pagination %}
         <a href="{{ path('post_show', { 'id': post.id }) }}"><h3>{{ post.title }}</h3></a>
         <p>{{ post.description }}</p>
-        {% if  %}
-        <p>{{ post.views }} views</p>
+        {% if post.views == 0 %}
+            <p>no views</p>
+        {% elseif post.views == 1 %}
+            <p>{{ post.views }} view</p>
+        {% else  %}
+            <p>{{ post.views }} views</p>
+        {% endif %}
     {% endfor %}
     {# display navigation #}
     <div class="navigation">
