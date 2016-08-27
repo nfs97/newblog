@@ -38,15 +38,14 @@ class AdminController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('ApiBundle:Post')->findAll();
-        $dql = "SELECT a FROM ApiBundle:Post a";
+        $dql = "SELECT a FROM ApiBundle:Post a ORDER BY a.id";
         $query = $em->createQuery($dql);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1),/*page number*/
-            10/*limit per page*/
+            5/*limit per page*/
         );
 
 

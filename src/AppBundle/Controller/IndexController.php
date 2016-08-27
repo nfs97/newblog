@@ -33,8 +33,7 @@ class IndexController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('ApiBundle:Post')->findAll();
-        $dql = "SELECT a FROM ApiBundle:Post a";
+        $dql = "SELECT a FROM ApiBundle:Post a ORDER BY a.id";
         $query = $em->createQuery($dql);
 
         $paginator = $this->get('knp_paginator');
