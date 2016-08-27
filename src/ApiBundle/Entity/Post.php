@@ -38,6 +38,12 @@ class Post implements \JsonSerializable
     protected $body;
 
     /**
+     *
+     * @ORM\Column(name="views", type="integer", nullable=true)
+     */
+    protected $views;
+
+    /**
      * @return mixed
      */
     public function getDescription()
@@ -102,6 +108,22 @@ class Post implements \JsonSerializable
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * @param mixed $views
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
     }
 
 }

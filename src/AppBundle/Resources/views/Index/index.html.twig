@@ -8,13 +8,10 @@
 
 {% block body %}
 
-    {#            #}{# sorting of properties based on query components #}{#
-                <p{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</p>
-                <p>{{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}</p>#}
     {% for post in pagination %}
         <a href="{{ path('post_show', { 'id': post.id }) }}"><h3>{{ post.title }}</h3></a>
-        <span class="disqus-comment-count" data-disqus-url="{{ app.request.uri|slice(0, app.request.uri|length - 1) }}{{ path('post_show', { 'id': post.id }) }}"></span>
         <p>{{ post.description }}</p>
+        <p>{{ post.views }} views</p>
     {% endfor %}
     {# display navigation #}
     <div class="navigation">
@@ -24,5 +21,4 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script id="dsq-count-scr" src="//vladyblog.disqus.com/count.js" async></script>
 {% endblock %}

@@ -47,7 +47,6 @@ class IndexController extends Controller
 
         return $this->render('AppBundle:Index:index.html.twig', [
             'pagination' => $pagination,
-            'posts' => $posts,
         ]);
     }
 
@@ -60,6 +59,11 @@ class IndexController extends Controller
      */
     public function showAction(Post $post)
     {
+        $views = $post->getViews();
+        $post->setViews($views + 1);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($post);
+        $em->flush();
 
         return $this->render('AppBundle:Index:show.html.twig', [
             'post' => $post,

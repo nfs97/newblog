@@ -36,7 +36,6 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request)
     {
-        //$this->enforceUserSecurity();
 
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository('ApiBundle:Post')->findAll();
@@ -47,13 +46,12 @@ class AdminController extends Controller
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1),/*page number*/
-            5/*limit per page*/
+            10/*limit per page*/
         );
 
 
         return $this->render('AppBundle:Admin:index.html.twig', [
             'pagination' => $pagination,
-            'posts' => $posts,
         ]);
     }
 
