@@ -41,7 +41,7 @@ class Post implements \JsonSerializable
      *
      * @ORM\Column(name="views", type="integer", nullable=true)
      */
-    protected $views;
+    protected $views = 0;
 
     /**
      * @return mixed

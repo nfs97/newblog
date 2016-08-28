@@ -43,9 +43,11 @@ class IndexController extends Controller
             5/*limit per page*/
         );
 
+        $mostPopularPosts = $em->getRepository('ApiBundle:Post')->findBy([], ['views' => 'DESC'], 5);
 
         return $this->render('AppBundle:Index:index.html.twig', [
             'pagination' => $pagination,
+            'mostPopularPosts' => $mostPopularPosts,
         ]);
     }
 
@@ -58,15 +60,25 @@ class IndexController extends Controller
      */
     public function showAction(Post $post)
     {
+        $em = $this->getDoctrine()->getManager();
+
+
+
         $views = $post->getViews();
         $post->setViews($views + 1);
-        $em = $this->getDoctrine()->getManager();
+
         $em->persist($post);
         $em->flush();
 
         return $this->render('AppBundle:Index:show.html.twig', [
             'post' => $post,
         ]);
+    }
+
+    private function mostPopularPosts ()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $mostPopularPosts = $em->getRepository('ApiBundle:Post')->findBy();
     }
 
 }

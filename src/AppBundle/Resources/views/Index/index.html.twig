@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block body %}
-
+    <div class="container-fluid">
+    <div class="col-md-12">
     {% for post in pagination %}
         <a href="{{ path('post_show', { 'id': post.id }) }}"><h3>{{ post.title }}</h3></a>
         <p>{{ post.description }}</p>
@@ -15,10 +16,20 @@
             <p>no views</p>
         {% elseif post.views == 1 %}
             <p>{{ post.views }} view</p>
-        {% else  %}
+        {% else %}
             <p>{{ post.views }} views</p>
         {% endif %}
     {% endfor %}
+    </div>
+    <div class="col-md-6 btn btn-default">
+        {% for popPost in mostPopularPosts %}
+            <ul class="list-inline">
+                <li><a href="{{ path('post_show', { 'id': popPost.id }) }}">{{ popPost.title }}</a></li>
+                <li><p>{{ popPost.views }}</p></li>
+            </ul>
+        {% endfor %}
+    </div>
+    </div>
     {# display navigation #}
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
