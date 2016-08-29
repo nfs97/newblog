@@ -77,6 +77,39 @@ th.action-buttons {
     background: green;
 }
 
+div.wrapper progress {
+    /* Positioning */
+    position: fixed;
+    left: 0;
+    top: 50px;
 
+    /* Dimensions */
+    width: 100%;
+    height: 5px;
 
+    /* Reset the appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 
+    /* Get rid of the default border in Firefox/Opera. */
+    border: none;
+
+    /* Progress bar container for Firefox/IE10+ */
+    background-color: transparent;
+
+    /* Progress bar value for IE10+ */
+    color: red;
+}
+
+div.wrapper progress::-webkit-progress-bar {
+    background-color: transparent;
+}
+
+div.wrapper progress::-webkit-progress-value {
+    background-color: red;
+}
+
+div.wrapper progress::-moz-progress-bar {
+    background-color: red;
+}

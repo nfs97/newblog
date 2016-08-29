@@ -20,7 +20,7 @@
                 <td name="id"><a href="{{ path('admin_post_show', { 'id': post.id }) }}">{{ post.id }}</a></td>
                 <td name="title">{{ post.title }}</td>
                 <td name="description">{{ post.description }}</td>
-                <td name="description">{{ post.views }}</td>
+                <td name="views">{{ post.views }}</td>
                 <td class="buttons-tight">
                     <a class="btn btn-default" href="{{ path('admin_post_show', { 'id': post.id }) }}">Show</a>
                     <a class="btn btn-primary" href="javascript:;" type="button" data-toggle="modal" data-target="#myModal-{{ post.id }}">Edit</a>
