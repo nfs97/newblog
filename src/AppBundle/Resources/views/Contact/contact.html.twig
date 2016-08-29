@@ -1,0 +1,39 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/login.css') }}"/>
+{% endblock %}
+
+
+{% block body %}
+
+    <section class="login">
+        <article>
+            <form class="form-group" action="{{ path('contact') }}" method="post">
+                {{ form_errors(form) }}
+
+                {{ form_row(form.subject, {
+                    'attr' : {'class':'form-control'}
+                }) }}
+                {{ form_row(form.name, {
+                    'attr' : {'class':'form-control'}
+                }) }}
+                {{ form_row(form.email, {
+                    'attr' : {'class':'form-control'}
+                }) }}
+                {{ form_row(form.message, {
+                    'attr' : {'class':'form-control'}
+                }) }}
+
+                {# Render CSRF token etc .#}
+                <div style="display:none">
+                    {{ form_rest(form) }}
+                </div>
+                <hr/>
+                <input type="submit" value="Submit!" class="btn btn-primary pull-right"/>
+            </form>
+        </article>
+    </section>
+{% endblock %}

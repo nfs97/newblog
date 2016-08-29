@@ -8,17 +8,11 @@
 
 namespace AppBundle\Controller;
 
+use ApiBundle\Entity\Post;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Routing\Annotation\Route;
-use ApiBundle\Form\PostType;
-use Symfony\Component\HttpFoundation\Response;
-use ApiBundle\Entity\Post;
 
 
 class IndexController extends Controller
@@ -43,7 +37,7 @@ class IndexController extends Controller
             5/*limit per page*/
         );
 
-        $mostPopularPosts = $em->getRepository('ApiBundle:Post')->findBy([], ['views' => 'DESC'], 5);
+        $mostPopularPosts = $this->mostPopularPosts();
 
         return $this->render('AppBundle:Index:index.html.twig', [
             'pagination' => $pagination,
@@ -63,7 +57,6 @@ class IndexController extends Controller
         $em = $this->getDoctrine()->getManager();
 
 
-
         $views = $post->getViews();
         $post->setViews($views + 1);
 
@@ -75,10 +68,10 @@ class IndexController extends Controller
         ]);
     }
 
-    private function mostPopularPosts ()
+    private function mostPopularPosts()
     {
         $em = $this->getDoctrine()->getManager();
-        $mostPopularPosts = $em->getRepository('ApiBundle:Post')->findBy();
+        return $em->getRepository('ApiBundle:Post')->findBy([], ['views' => 'DESC'], 5);
     }
 
 }
