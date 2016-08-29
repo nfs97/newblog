@@ -99,7 +99,7 @@ div.wrapper progress {
     background-color: transparent;
 
     /* Progress bar value for IE10+ */
-    color: red;
+    color: #fb3;
 }
 
 div.wrapper progress::-webkit-progress-bar {
@@ -107,9 +107,9 @@ div.wrapper progress::-webkit-progress-bar {
 }
 
 div.wrapper progress::-webkit-progress-value {
-    background-color: red;
+    background-color: #fb3;
 }
 
 div.wrapper progress::-moz-progress-bar {
-    background-color: red;
+    background-color: #fb3;
 }
