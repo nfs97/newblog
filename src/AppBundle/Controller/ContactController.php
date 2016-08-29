@@ -41,7 +41,7 @@ class ContactController extends Controller
 
                     $this->addFlash(
                         'notice',
-                        'Thanks for email!'
+                        'Changed message to test!'
                     );
 
                     return $this->redirectToRoute('contact');
