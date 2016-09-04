@@ -63,8 +63,11 @@ class IndexController extends Controller
         $em->persist($post);
         $em->flush();
 
+        $mostPopularPosts = $this->mostPopularPosts();
+
         return $this->render('AppBundle:Index:show.html.twig', [
             'post' => $post,
+            'mostPopularPosts' => $mostPopularPosts,
         ]);
     }
 

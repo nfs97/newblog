@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap.css') }}" />
-        <link rel="stylesheet" href="{{ asset('bundles/app/css/main.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('bundles/app/css/main.css') }}"/>
     {% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-6" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-6" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span> <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </button> <a class="navbar-brand" href="#">Brand</a>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
             <ul class="nav navbar-nav">
@@ -41,6 +43,17 @@
         <p>{{ flash_message }}</p>
     </div>
 {% endfor %}
+{% block popPosts %}
+    <div class="col-md-6 btn btn-default">
+        <p>Popular posts</p>
+        {% for popPost in mostPopularPosts %}
+            <ul class="list-inline">
+                <li><a href="{{ path('post_show', { 'id': popPost.id }) }}">{{ popPost.title }}</a></li>
+                <li><p>{{ popPost.views }}</p></li>
+            </ul>
+        {% endfor %}
+    </div>
+{% endblock %}
 <div class="wrapper">
     {% block body %}{% endblock %}
 </div>

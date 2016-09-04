@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{{ asset('bundles/app/css/login.css') }}"/>
 {% endblock %}
 
+{% block popPosts %}
+{% endblock %}
+
 {% block body %}
     <section class="login">
         <article>
@@ -31,4 +34,19 @@
             </form>
         </article>
     </section>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+    <script>
+        var lock = new Auth0Lock('uzeZkp9LdqCSWEpC9F9qM2nwfyBnQcuj', 'vlady.eu.auth0.com', {
+            container: 'root',
+            auth: {
+                redirectUrl: 'http://192.168.33.10/',
+                responseType: 'code',
+                params: {
+                    scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
+                }
+            }
+        });
+    </script>
 {% endblock %}

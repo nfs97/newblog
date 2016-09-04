@@ -20,7 +20,7 @@ div.col-md-12 {
 
 div.col-md-6.btn.btn-default {
     width: 150px;
-    right: -30%;
+    left: 85%;
 }
 
 div.flash-notice {
@@ -113,3 +113,4 @@ div.wrapper progress::-webkit-progress-value {
 div.wrapper progress::-moz-progress-bar {
     background-color: #fb3;
 }
+
