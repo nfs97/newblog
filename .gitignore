@@ -18,4 +18,4 @@
 .idea/*
 node_modules/*
 certificationy-cli/*
-/web/uploads/
+/web/bundles/
